@@ -1,5 +1,5 @@
-import * as draw from '../draw.js';
-import { Vector } from '../vector.js';
+import * as draw from '../src/utils/draw.js';
+import { Vector } from '../src/utils/vector.js';
 
 function getRandomInt(max) {
     var a = Math.floor(Math.random() * max);

@@ -5,7 +5,7 @@
 ** script
 */
 
-import * as draw from '../draw.js';
+import * as draw from '../src/utils/draw.js';
 import { LinkedList } from './linked_list.js';
 
 const canvas = document.getElementById('Bounce');
@@ -112,7 +112,7 @@ onkeydown = function(event) {
 
 setInterval(gameLoop, 25);
 let list = new LinkedList();
-list.add(new mooving_shapes(200, 200, 30, 4, 4));
+list.add(new mooving_shapes(200, 200, 10, 4, 4));
 let g = 0;
 function gameLoop() {
     if (g) {
@@ -123,4 +123,3 @@ function gameLoop() {
     c.clearRect(0, 0, innerWidth, innerHeight);
     list.printList();
 }
-
