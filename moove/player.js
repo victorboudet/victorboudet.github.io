@@ -1,15 +1,6 @@
 import * as draw from '../src/utils/draw.js';
 import { Vector } from '../src/utils/vector.js';
 
-function getRandomInt(max) {
-    var a = Math.floor(Math.random() * max);
-    if (a == 0)
-        return 3;
-    return a;
-}
-
-const colors = ['a', 'red', 'green', 'blue', 'orange', 'pink', 'yellow', 'purple', 'white', 'grey', 'brown'];
-
 
 export class Player {
     constructor(x, y, shape, size, c) {

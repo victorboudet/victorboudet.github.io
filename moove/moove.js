@@ -1,20 +1,48 @@
-import { Player } from './player.js';
-// import { Vector } from '../vector.js';
-import { LinkedList } from './linked_list.js';
+import { Entity } from '../src/shapes/Entity.js';
+import * as llist from '../src/linked_list/shapes_function.js';
+import { LinkedList } from '../src/linked_list/LinkedList.js';
+
+const speed = 2;
+const nballs = 170;
+const size = 30;
+const limit = {
+    xmin: 0,
+    xmax: innerWidth,
+    ymin: 0,
+    ymax: innerHeight,
+};
+
+// addEventListener('resize', function() {
+//     canvas.width = innerWidth;
+//     canvas.height = innerHeight;
+//     limit.xmax = innerWidth;
+//     limit.ymax = innerHeight;
+// });
 
 const canvas = document.getElementById('Square');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const c = canvas.getContext('2d');
 
-const mx = 3, my = 3;
+const square = new Entity(1000, 850, 0, 0, "Circle", size*2, "white", c);
+const list = new LinkedList();
+list.add(square);
+for (let i = 1, j = 1, k = 0; k < nballs; i++, k++) {
+    list.add(new Entity(i*(size*3), size*j*3, 2, size, "circle", 40, getRandomColor(), c));
+    if ((i+1)*(size*3) >= innerWidth) {
+        j++;
+        i = 0;
+    }
+}
 
 var keysquare = [
-    [false, function(){square.moove(0, -10*my)}],
-    [false, function(){square.moove(0, 10*my)}],
-    [false, function(){square.moove(-10*mx, 0)}],
-    [false, function(){square.moove(10*mx, 0)}],
+    [false, function(){square.moove(0, -10*speed)}],
+    [false, function(){square.moove(0, 10*speed)}],
+    [false, function(){square.moove(-10*speed, 0)}],
+    [false, function(){square.moove(10*speed, 0)}],
 ];
+
+setInterval(gameLoop, 10);
 
 onkeydown = function(event) {
     let keyPr = event.keyCode;
@@ -44,6 +72,20 @@ onkeyup = function(event) {
         keysquare[3][0] = false;
 }
 
+function getRandomColor() {
+    const colors = ['red',
+                    'green',
+                    'blue',
+                    'orange',
+                    'pink',
+                    'yellow',
+                    'purple',
+                    'grey',
+                    'brown'];
+    var a = Math.floor(Math.random() * 10);
+    return colors[a];
+}
+
 function moove_square()
 {
     for (let i = 0; i < 4; i++) {
@@ -57,23 +99,9 @@ function push(b1, b2) {
     let dist = b1.pos.subtr(b2.pos);
     let pen_d = b1.size + b2.size - dist.mag();
     let pen_r = dist.unit().mult(pen_d / 2);
-    b1.moove(pen_r.x, pen_r.y);
-    b2.moove(-pen_r.x, -pen_r.y);
+    b1.moove(pen_r.x, pen_r.y, limit);
+    b2.moove(-pen_r.x, -pen_r.y, limit);
 }
-
-const square = new Player(1700, 1500, 2, 40, c);
-square.draw();
-// const square2 = new Player(innerWidth/2 + 100, innerHeight/2 + 10, 2, 50, c);
-// const square3 = new Player(innerWidth/2 + 100, innerHeight/2 + 100, 2, 50, c);
-
-const list = new LinkedList();
-list.add(square);
-for (let j = 1; j < 10; j++) {    
-    for (let i = 1; i < 17; i++) {
-        list.add(new Player(i*100, 70*j, 2, 30, c));
-    }
-}
-setInterval(gameLoop, 10);
 
 function is_collid(b1, b2) {
     if(b1.size + b2.size >= b2.pos.subtr(b1.pos).mag()){
@@ -101,7 +129,6 @@ function gameLoop() {
     moove_square();
     check_collids(list);
     c.clearRect(0, 0, innerWidth, innerHeight);
-    list.printList();
-    // list.moove_list(0, 5)
-    // square.moove(0, -5)
+    llist.printList(list);
+    square.draw(c);
 }

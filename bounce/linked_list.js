@@ -7,13 +7,16 @@ export class Node {
 }
 
 export class LinkedList {
-    constructor() {
+    constructor(limit) {
         this.head = null;
         this.size = 0;
+        this.limit = limit;
     }
     add(element) {
-        if (this.size > 3000)
+        if (this.size > this.limit) {
+            console.log("Can't add more elements")
             return;
+        }
         var node = new Node(element);
         var current;
  

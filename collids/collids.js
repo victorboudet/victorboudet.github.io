@@ -1,5 +1,5 @@
 import * as draw from '../src/utils/draw.js';
-import { LinkedList } from './linked_list.js';
+import { LinkedList } from '../src/linked_list/LinkedList.js';
 import { Vector } from '../src/utils/vector.js';
 
 const canvas = document.getElementById('Collids');
@@ -31,6 +31,14 @@ function clearCircle(context,x,y,radius) {
 
 function dot_product(v1, v2) {
     return v1.x * v2.x + v1.y * v2.y;
+}
+
+function is_collid(b1, b2) {
+    if(b1.size + b2.size >= b2.pos.subtr(b1.pos).mag()){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function abso(x) {
@@ -133,15 +141,16 @@ class mooving_shapes {
                 // vy1 = vy1 + f * ty * m2;
                 // vx2 = vx2 - f * tx * m1;
                 // vy2 = vy2 - f * ty * m1;
-                if (r*r >= x*x+y*y) {
-                    if (x == 0) {
-                        this.vector.x = -this.vector.x;
-                    } else if (y == 0) {
-                        this.vector.y = -this.vector.y;
-                    } else {
-                        this.vector.x = vf.x;
-                        this.vector.y = vf.y;   
-                    }
+                if (is_collid(this, node.element)) {
+                    // if (x == 0) {
+                    //     this.vector.x = -this.vector.x;
+                    // } else if (y == 0) {
+                    //     this.vector.y = -this.vector.y;
+                    // } else {
+                    //     this.pos.x += this.radius;
+                    //     this.pos.y += this.radius;
+                    // }
+                    console.log("collid")
                 }
             }
             node = node.next;
@@ -155,9 +164,24 @@ list.add(new mooving_shapes(innerWidth / 2, (innerHeight * 0.7) + 19, 20, -1, -1
 list.add(new mooving_shapes(innerWidth / 2, innerHeight * 0.6, 20, 1, -1));
 setInterval(gameLoop, 1);
 
+
+// function check_collids(list) {
+//     let node = list.head;
+//     while (node) {
+//         let node2 = node.next;
+//         while (node2) {
+//             if (is_collid(node.element, node2.element)) {
+//                 push(node.element, node2.element);
+//             }
+//             node2 = node2.next;
+//         }
+//         node = node.next;
+//     }
+// }
+
 function gameLoop() {
-    list.collids_list();
     list.moove_list();
+    // check_collids(list);
     c.clearRect(0, 0, innerWidth, innerHeight);
     list.printList();
 }

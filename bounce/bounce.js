@@ -5,13 +5,18 @@
 ** script
 */
 
-import * as draw from '../src/utils/draw.js';
+import * as circles from '../src/shapes/Circle.js';
 import { LinkedList } from './linked_list.js';
 
 const canvas = document.getElementById('Bounce');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const c = canvas.getContext('2d');
+
+addEventListener('resize', function() {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+});
 
 function getRandomInt(max) {
     var a = Math.floor(Math.random() * max);
@@ -38,7 +43,7 @@ class mooving_shapes {
         if (this.shat) 
             draw.square(this.x, this.y, this.radius, this.color, c);
         else
-            draw.circle(this.x, this.y, this.radius, this.color, c);
+            circles.draw(this.x, this.y, this.radius, this.color, c);
     }
     set_pos(x, y) {
         this.x = x;
@@ -111,7 +116,7 @@ onkeydown = function(event) {
 }
 
 setInterval(gameLoop, 25);
-let list = new LinkedList();
+let list = new LinkedList(1000);
 list.add(new mooving_shapes(200, 200, 10, 4, 4));
 let g = 0;
 function gameLoop() {

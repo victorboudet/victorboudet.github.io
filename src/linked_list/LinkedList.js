@@ -8,13 +8,16 @@ export class Node {
 }
 
 export class LinkedList {
-    constructor() {
+    constructor(lim) {
         this.head = null;
         this.size = 0;
+        this.limit = lim
     }
     add(element) {
-        if (this.size > 3000)
+        if (this.size > this.limit) {
+            console.log("Can't add more elements")
             return;
+        }
         var node = new Node(element);
         var current;
  
@@ -31,26 +34,5 @@ export class LinkedList {
             current.element.index = this.size;
         }
         this.size++;
-    }
-    printList() {
-        var curr = this.head;
-        while (curr) {
-            curr.element.draw();
-            curr = curr.next;
-        }
-    }
-    moove_list(x, y) {
-        var curr = this.head;
-        while (curr) {
-            curr.element.moove(x, y);
-            curr = curr.next;
-        }
-    }
-    collids_list() {
-        var curr = this.head;
-        while (curr) {
-            curr.element.collids();
-            curr = curr.next;
-        }
     }
 }
