@@ -1,12 +1,18 @@
-import * as draw from '../draw.js';
+import * as draw from '../src/utils/draw.js';
 import { LinkedList } from './linked_list.js';
-import { Vector } from '../vector.js';
+import { Vector } from '../src/utils/vector.js';
 
 const canvas = document.getElementById('Collids');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 const c = canvas.getContext('2d');
 c.font = "20px Arial";
+
+onkeydown = function(event) {
+    let keyPr = event.keyCode;
+    if (keyPr === 49)
+        this.window.location.href = "../index.html";
+}
 
 function getRandomInt(max) {
     var a = Math.floor(Math.random() * max);
@@ -133,7 +139,8 @@ class mooving_shapes {
                     } else if (y == 0) {
                         this.vector.y = -this.vector.y;
                     } else {
-                        push(this, node.element);
+                        this.vector.x = vf.x;
+                        this.vector.y = vf.y;   
                     }
                 }
             }
