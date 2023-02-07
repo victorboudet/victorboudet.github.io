@@ -8,6 +8,7 @@ canvas.height = innerHeight;
 const c = canvas.getContext('2d');
 c.font = "20px Arial";
 
+
 onkeydown = function(event) {
     let keyPr = event.keyCode;
     if (keyPr === 49)

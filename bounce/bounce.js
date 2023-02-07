@@ -116,7 +116,7 @@ onkeydown = function(event) {
 }
 
 setInterval(gameLoop, 25);
-let list = new LinkedList(1000);
+let list = new LinkedList(3000);
 list.add(new mooving_shapes(200, 200, 10, 4, 4));
 let g = 0;
 function gameLoop() {
