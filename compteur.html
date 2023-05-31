@@ -3,9 +3,34 @@
 <head>
   <title>Compte à rebours</title>
   <style>
-    #countdown {
-      font-size: 24px;
+    ::before, ::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #222;
+    }
+
+    h2 {
+      margin: 0;
+      padding-top: 210px;
+      width: 100%;
+      color: #f1f1f1;
+      font-size: 80px;
       text-align: center;
+    }
+    
+    #countdown {
+      font-size: 30px;
+      text-align: left;
+      color: #fff;
+    }
+
+    .bold {
+      font-weight: bold;
     }
   </style>
 </head>
@@ -35,16 +60,20 @@
         let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-        countdownElement.innerHTML = `Temps restant : ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes`;
+        countdownElement.innerHTML = "Temps restant : ";
+        countdownElement.innerHTML += "<b>" + days + "</b>j, "
+        countdownElement.innerHTML += "<b>" + hours + "</b>h, ";
+        countdownElement.innerHTML += "<b>" + minutes + "</b>m, ";
+        countdownElement.innerHTML += "<b>" + seconds + "</b>s.<br><br>";
 
         const hoursOnly = Math.floor(timeDiff / (1000 * 60 * 60));
-        countdownElement.innerHTML += `<br>Temps restant en heures : ${hoursOnly} heures`;
+        countdownElement.innerHTML += "<br><br>Temps restant en heures : <b>" + hoursOnly + "</b> heures.";
 
         const minutesOnly = Math.floor(timeDiff / (1000 * 60));
-        countdownElement.innerHTML += `<br>Temps restant en minutes : ${minutesOnly} minutes`;
+        countdownElement.innerHTML += "<br><br>Temps restant en minutes : <b>" + minutesOnly + "</b> minutes.";
 
         const secondsOnly = Math.floor(timeDiff / 1000);
-        countdownElement.innerHTML += `<br>Temps restant secondes : ${secondsOnly} secondes`;
+        countdownElement.innerHTML += "<br><br>Temps restant en secondes : <b>" + secondsOnly + "</b> secondes.";
 
         if (timeDiff <= 0) {
           clearInterval(countdownInterval);
@@ -53,7 +82,7 @@
       }, 1000);
     }
 
-    const endDate = new Date("2023-06-04T12:00:00");
+    const endDate = new Date("2023-06-03T12:00:00");
     countdown(endDate);
   </script>
 </body>
