@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Compte à rebours</title>
+  <style>
+    #countdown {
+      font-size: 24px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown"></div>
+
+  <script>
+    function countdown(endDate) {
+      const countdownElement = document.getElementById('countdown');
+
+      const startDate = new Date();
+      const startTime = startDate.getTime();
+      const endTime = endDate.getTime();
+
+      let timeDiff = endTime - startTime;
+
+      if (timeDiff <= 0) {
+        countdownElement.innerHTML = "La date de fin doit être supérieure à la date de départ.";
+        return;
+      }
+
+      const countdownInterval = setInterval(() => {
+        timeDiff -= 1000;
+
+        let days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `Temps restant : ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes`;
+
+        const hoursOnly = Math.floor(timeDiff / (1000 * 60 * 60));
+        countdownElement.innerHTML += `<br>Temps restant en heure : ${hoursOnly} heures`;
+
+        const minutesOnly = Math.floor(timeDiff / (1000 * 60));
+        countdownElement.innerHTML += `<br>Temps restant en minutes : ${minutesOnly} minutes`;
+
+        const secondsOnly = Math.floor(timeDiff / 1000);
+        countdownElement.innerHTML += `<br>Temps restant secondes : ${secondsOnly} secondes`;
+
+        if (timeDiff <= 0) {
+          clearInterval(countdownInterval);
+          countdownElement.innerHTML = "Le compte à rebours est terminé !";
+        }
+      }, 1000);
+    }
+
+    const endDate = new Date("2023-06-04T12:00:00");
+    countdown(endDate);
+  </script>
+</body>
+</html>
