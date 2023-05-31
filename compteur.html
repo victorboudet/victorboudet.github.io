@@ -19,13 +19,13 @@
       padding-top: 210px;
       width: 100%;
       color: #f1f1f1;
-      font-size: 80px;
+      font-size: 350%;
       text-align: center;
     }
     
     #countdown {
-      font-size: 30px;
-      text-align: left;
+      font-size: 350%;
+      text-align: center;
       color: #fff;
     }
 
@@ -60,20 +60,20 @@
         let minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-        countdownElement.innerHTML = "Temps restant : ";
+        countdownElement.innerHTML = "Temps restant<br>";
         countdownElement.innerHTML += "<b>" + days + "</b>j, "
         countdownElement.innerHTML += "<b>" + hours + "</b>h, ";
         countdownElement.innerHTML += "<b>" + minutes + "</b>m, ";
-        countdownElement.innerHTML += "<b>" + seconds + "</b>s.<br><br>";
+        countdownElement.innerHTML += "<b>" + seconds + "</b>s";
 
         const hoursOnly = Math.floor(timeDiff / (1000 * 60 * 60));
-        countdownElement.innerHTML += "<br><br>Temps restant en heures : <b>" + hoursOnly + "</b> heures.";
+        countdownElement.innerHTML += "<br><br><b>" + hoursOnly + "</b> heures";
 
         const minutesOnly = Math.floor(timeDiff / (1000 * 60));
-        countdownElement.innerHTML += "<br><br>Temps restant en minutes : <b>" + minutesOnly + "</b> minutes.";
+        countdownElement.innerHTML += "<br><br><b>" + minutesOnly + "</b> minutes";
 
         const secondsOnly = Math.floor(timeDiff / 1000);
-        countdownElement.innerHTML += "<br><br>Temps restant en secondes : <b>" + secondsOnly + "</b> secondes.";
+        countdownElement.innerHTML += "<br><br><b>" + secondsOnly + "</b> secondes";
 
         if (timeDiff <= 0) {
           clearInterval(countdownInterval);
@@ -82,7 +82,7 @@
       }, 1000);
     }
 
-    const endDate = new Date("2023-06-03T12:00:00");
+    const endDate = new Date("2023-06-04T12:00:00");
     countdown(endDate);
   </script>
 </body>
