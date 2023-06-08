@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .light-button button.bt {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    outline: none;
+    background: none;
+    border: none;
+}
+  .light-button button.bt .button-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    background-color: #0a0a0a;
+    border-radius: 25px;
+    color: #0f0f0f;
+    font-weight: 700;
+    transition: 300ms;
+    outline: #0f0f0f 2px solid;
+    outline-offset: 20;
+  }
+  .light-button button.bt .light-holder {
+    position: absolute;
+    height: 200px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .light-button button.bt .light-holder .line {
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 10px;
+    background-color: #0a0a0a;
+    border-radius: 10px;
+    z-index: 2;
+  }
+  .light-button button.bt .light-holder .light {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    clip-path: polygon(50% -50%, 25% 100%, 75% 100%);
+    background: transparent;
+  }
+    </style>
+    <script>
+        window.onload = function() {
+            var buttons = [
+                { color: '#6600cc', text: 'Discord', position: 'relative', link: 'https://discord.com' },
+                { color: '#008000', text: 'Google', position: 'relative', link: 'https://google.com'}
+            ];
+            
+            var lightButtonDiv = document.querySelector(".light-button");
+            
+            buttons.forEach(function(button) {
+                var bt = document.createElement('button');
+                bt.className = 'bt';
+                bt.style.position = button.position;
+                
+                var lightHolderDiv = document.createElement('div');
+                lightHolderDiv.className = 'light-holder';
+                var lineDiv = document.createElement('div');
+                lineDiv.className = 'line';
+                var lightDiv = document.createElement('div');
+                lightDiv.className = 'light';
+                lightHolderDiv.appendChild(lineDiv);
+                lightHolderDiv.appendChild(lightDiv);
+                
+                var buttonHolderDiv = document.createElement('div');
+                buttonHolderDiv.className = 'button-holder';
+                buttonHolderDiv.style.backgroundColor = "black";
+                
+                var p = document.createElement('p');
+                p.textContent = button.text;
+                buttonHolderDiv.appendChild(p);
+                bt.appendChild(lightHolderDiv);
+                bt.appendChild(buttonHolderDiv);
+                
+                bt.addEventListener('mouseover', function() {
+                    buttonHolderDiv.style.outline = button.color + ' 2px solid';
+                    buttonHolderDiv.style.color = button.color;
+                    lightDiv.style.background = `linear-gradient(180deg, ${button.color} 0%, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 0) 100%)`;
+                    buttonHolderDiv.style.backgroundColor = "black";
+                });
+                bt.addEventListener('mouseout', function() {
+                    buttonHolderDiv.style.outline = '#0f0f0f 2px solid';
+                    buttonHolderDiv.style.color = '#0f0f0f';
+                    lightDiv.style.background = 'transparent';
+                    buttonHolderDiv.style.backgroundColor = "black";
+
+                });
+                bt.addEventListener('click', function() {
+                    window.location.href = button.link;
+                });
+                
+                lightButtonDiv.appendChild(bt);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="light-button">
+    </div>
+</body>
+</html>
